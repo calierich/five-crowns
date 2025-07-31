@@ -178,27 +178,46 @@ class FiveCrownsTracker {
     }
 
     renderScorecard() {
-        const container = document.getElementById('scorecard-body');
+        const container = document.getElementById('scorecard-body-vertical');
         container.innerHTML = '';
 
-        this.currentGame.players.forEach(player => {
-            const row = document.createElement('div');
-            row.className = 'player-row';
+        this.players.forEach(player => {
+            const playerCard = document.createElement('div');
+            playerCard.className = 'player-score-card';
             
-            const scoresHtml = this.currentGame.scores[player].map((score, index) => {
-                const isCurrentRound = index === this.currentRound - 1;
-                const displayScore = score !== null ? score : '';
-                return `<div class="score-cell ${isCurrentRound ? 'current-round' : ''}" 
-                              onclick="tracker.openScoreModal('${player}', ${index + 1})">${displayScore}</div>`;
-            }).join('');
-
-            row.innerHTML = `
-                <div class="player-name-cell">${player}</div>
-                <div class="scores-row">${scoresHtml}</div>
-                <div class="total-cell">${this.calculatePlayerTotal(player)}</div>
+            const playerTotal = this.calculatePlayerTotal(player);
+            
+            playerCard.innerHTML = `
+                <div class="player-score-header">
+                    <div class="player-score-name">${player}</div>
+                    <div class="player-score-total">${playerTotal}</div>
+                </div>
+                <div class="player-rounds-grid">
+                    ${Array.from({length: 11}, (_, i) => {
+                        const round = i + 1;
+                        const rawScore = this.currentGame.scores[player] && this.currentGame.scores[player][round - 1];
+                        const score = (rawScore !== null && rawScore !== undefined && rawScore !== '') ? rawScore : '';
+                        const wildCard = this.wildCards[i];
+                        const isCurrentRound = round === this.currentRound;
+                        const isCompleted = score !== '';
+                        const cellClass = isCurrentRound ? 'current-round' : (isCompleted ? 'completed' : 'empty');
+                        const displayText = score !== '' ? score : wildCard;
+                        
+                        return `<div class="round-score-cell ${cellClass}" data-player="${player}" data-round="${round}" title="Round ${round} (Wild: ${wildCard})">${displayText}</div>`;
+                    }).join('')}
+                </div>
             `;
             
-            container.appendChild(row);
+            container.appendChild(playerCard);
+        });
+        
+        // Add click handlers for score cells
+        container.querySelectorAll('.round-score-cell').forEach(cell => {
+            cell.addEventListener('click', () => {
+                const player = cell.dataset.player;
+                const round = parseInt(cell.dataset.round);
+                this.openScoreModal(player, round);
+            });
         });
     }
 
