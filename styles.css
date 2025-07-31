@@ -527,8 +527,11 @@ body {
 }
 
 .round-score-cell.empty {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.25);
     font-style: italic;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', 'Menlo', 'Consolas', monospace;
+    font-weight: 300;
+    letter-spacing: 0.5px;
 }
 
 /* Modal Styles */
