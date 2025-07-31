@@ -450,9 +450,114 @@ class FiveCrownsTracker {
         this.updatePlayerStats();
         this.saveData();
 
-        alert(`Game Complete! Winner: ${winner} with ${lowestScore} points`);
+        // Show celebration modal instead of alert
+        this.showCelebrationModal(winner, lowestScore, finalScores);
+    }
+
+    showCelebrationModal(winner, winnerScore, finalScores) {
+        // Populate modal content
+        document.getElementById('winner-name').textContent = winner;
+        document.getElementById('winner-score').textContent = winnerScore;
+        
+        // Populate final scores list
+        const scoresContainer = document.getElementById('all-final-scores');
+        scoresContainer.innerHTML = '';
+        
+        // Sort players by score (lowest first)
+        const sortedPlayers = Object.entries(finalScores)
+            .sort(([,a], [,b]) => a - b);
+        
+        sortedPlayers.forEach(([player, score]) => {
+            const scoreItem = document.createElement('div');
+            scoreItem.className = `final-score-item ${player === winner ? 'winner-item' : ''}`;
+            scoreItem.innerHTML = `
+                <span class="final-score-name">${player}</span>
+                <span class="final-score-value">${score}</span>
+            `;
+            scoresContainer.appendChild(scoreItem);
+        });
+        
+        // Show modal
+        const modal = document.getElementById('celebration-modal');
+        modal.classList.remove('hidden');
+        
+        // Start confetti animation
+        this.startConfetti();
+        
+        // Add event listener for close button
+        const closeBtn = document.getElementById('celebration-close');
+        const closeHandler = () => {
+            this.closeCelebrationModal();
+            closeBtn.removeEventListener('click', closeHandler);
+        };
+        closeBtn.addEventListener('click', closeHandler);
+        
+        // Close modal when clicking outside
+        const modalClickHandler = (e) => {
+            if (e.target.id === 'celebration-modal') {
+                this.closeCelebrationModal();
+                modal.removeEventListener('click', modalClickHandler);
+            }
+        };
+        modal.addEventListener('click', modalClickHandler);
+    }
+    
+    closeCelebrationModal() {
+        const modal = document.getElementById('celebration-modal');
+        modal.classList.add('hidden');
+        
+        // Stop confetti
+        this.stopConfetti();
+        
+        // Hide game view and reset
         this.hideGameView();
         this.currentGame = null;
+    }
+    
+    startConfetti() {
+        const container = document.querySelector('.confetti-container');
+        const colors = ['#FEBE53', '#FFD700', '#FF8C42', '#90EE90', '#87CEEB', '#DDA0DD', '#F0E68C'];
+        
+        // Clear any existing confetti
+        container.innerHTML = '';
+        
+        // Create confetti pieces
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDelay = Math.random() * 3 + 's';
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            container.appendChild(confetti);
+        }
+        
+        // Store confetti interval for cleanup
+        this.confettiInterval = setInterval(() => {
+            // Add more confetti pieces periodically
+            if (container.children.length < 30) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = '0s';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(confetti);
+            }
+        }, 300);
+    }
+    
+    stopConfetti() {
+        if (this.confettiInterval) {
+            clearInterval(this.confettiInterval);
+            this.confettiInterval = null;
+        }
+        
+        // Clear confetti container
+        const container = document.querySelector('.confetti-container');
+        if (container) {
+            container.innerHTML = '';
+        }
     }
 
     endGame() {

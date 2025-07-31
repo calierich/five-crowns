@@ -814,3 +814,232 @@ body {
         min-height: 30px;
     }
 }
+
+/* Celebration Modal Styles */
+.celebration-modal {
+    z-index: 1001;
+}
+
+.celebration-content {
+    position: relative;
+    background: linear-gradient(135deg, #652E8D 0%, #502271 50%, #461868 100%);
+    border: 2px solid #FEBE53;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    animation: celebrationPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: hidden;
+}
+
+@keyframes celebrationPop {
+    0% {
+        transform: scale(0.3) rotate(-10deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05) rotate(2deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: confettiFall linear infinite;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.celebration-header {
+    text-align: center;
+    padding: 2rem 2rem 1rem;
+    background: linear-gradient(45deg, rgba(254, 190, 83, 0.2), rgba(255, 215, 0, 0.1));
+    border-bottom: 1px solid rgba(254, 190, 83, 0.3);
+}
+
+.crown-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    animation: crownBounce 2s ease-in-out infinite;
+}
+
+@keyframes crownBounce {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.1);
+    }
+}
+
+.celebration-header h2 {
+    color: #FEBE53;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.celebration-body {
+    padding: 2rem;
+    text-align: center;
+}
+
+.winner-announcement {
+    margin-bottom: 2rem;
+}
+
+.winner-announcement h3 {
+    color: #FEBE53;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: winnerGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes winnerGlow {
+    0% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(254, 190, 83, 0.3);
+    }
+    100% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 30px rgba(254, 190, 83, 0.6);
+    }
+}
+
+.winner-score {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+.winner-score span {
+    color: #90EE90;
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.final-scores {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.final-scores h4 {
+    color: #FEBE53;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.scores-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.final-score-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.final-score-item.winner-item {
+    background: rgba(34, 139, 34, 0.3);
+    border-color: rgba(144, 238, 144, 0.5);
+    box-shadow: 0 0 15px rgba(144, 238, 144, 0.2);
+}
+
+.final-score-name {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.final-score-item.winner-item .final-score-name {
+    color: #90EE90;
+}
+
+.final-score-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+.final-score-item.winner-item .final-score-value {
+    color: #90EE90;
+}
+
+.celebration-footer {
+    padding: 1.5rem 2rem 2rem;
+    text-align: center;
+}
+
+.celebration-btn {
+    background: linear-gradient(45deg, #FEBE53, #FFD700);
+    color: #1a1a2e;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(254, 190, 83, 0.3);
+}
+
+.celebration-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(254, 190, 83, 0.4);
+    background: linear-gradient(45deg, #FFD700, #FEBE53);
+}
+
+.celebration-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive styles for celebration modal */
+@media (max-width: 768px) {
+    .celebration-content {
+        max-width: 90%;
+        margin: 2rem;
+    }
+    
+    .celebration-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .winner-announcement h3 {
+        font-size: 2rem;
+    }
+    
+    .crown-icon {
+        font-size: 2.5rem;
+    }
+}

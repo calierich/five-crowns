@@ -61,7 +61,7 @@
 
                             <!-- Score Input Section -->
                             <div class="score-input-section">
-                                <h3>Enter Scores for Round <span id="input-round">1</span></h3>
+                                <h3>Enter Score <span id="input-round">1</span></h3>
                                 <div id="score-inputs" class="score-inputs"></div>
                                 <div class="input-actions">
                                     <button id="submit-scores" class="btn btn-primary">Submit Round</button>
@@ -134,6 +134,34 @@
             <div class="modal-footer">
                 <button id="modal-cancel" class="btn btn-secondary">Cancel</button>
                 <button id="modal-save" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div id="celebration-modal" class="modal celebration-modal hidden">
+        <div class="modal-content celebration-content">
+            <div class="confetti-container">
+                <!-- Confetti will be generated here -->
+            </div>
+            <div class="celebration-header">
+                <div class="crown-icon">👑</div>
+                <h2>Game Complete!</h2>
+            </div>
+            <div class="celebration-body">
+                <div class="winner-announcement">
+                    <h3 id="winner-name">Winner Name</h3>
+                    <p class="winner-score">Final Score: <span id="winner-score">0</span> points</p>
+                </div>
+                <div class="final-scores">
+                    <h4>Final Scores:</h4>
+                    <div id="all-final-scores" class="scores-list">
+                        <!-- Final scores will be populated here -->
+                    </div>
+                </div>
+            </div>
+            <div class="celebration-footer">
+                <button id="celebration-close" class="btn btn-primary celebration-btn">Awesome!</button>
             </div>
         </div>
     </div>
