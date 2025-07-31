@@ -181,16 +181,29 @@ class FiveCrownsTracker {
         const container = document.getElementById('scorecard-body-vertical');
         container.innerHTML = '';
 
+        // Calculate all player totals first to find the lowest
+        const playerTotals = {};
+        this.players.forEach(player => {
+            playerTotals[player] = this.calculatePlayerTotal(player);
+        });
+        
+        // Find the lowest score (consider all scores >= 0, including 0)
+        const validTotals = Object.values(playerTotals).filter(total => total >= 0);
+        const lowestScore = validTotals.length > 0 ? Math.min(...validTotals) : null;
+
         this.players.forEach(player => {
             const playerCard = document.createElement('div');
             playerCard.className = 'player-score-card';
             
-            const playerTotal = this.calculatePlayerTotal(player);
+            const playerTotal = playerTotals[player];
+            const isLowestScore = playerTotal >= 0 && playerTotal === lowestScore;
+            const hasScore = playerTotal >= 0;
+            const scoreClass = hasScore ? (isLowestScore ? 'lowest-score' : 'higher-score') : '';
             
             playerCard.innerHTML = `
                 <div class="player-score-header">
                     <div class="player-score-name">${player}</div>
-                    <div class="player-score-total">${playerTotal}</div>
+                    <div class="player-score-total ${scoreClass}">${playerTotal}</div>
                 </div>
                 <div class="player-rounds-grid">
                     ${Array.from({length: 11}, (_, i) => {
