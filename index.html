@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Five Crowns Progress Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#8B0000">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <span class="crown">👑</span>
+                    Five Crowns
+                </h1>
+                <nav class="nav">
+                    <button class="nav-btn active" data-tab="game">Game</button>
+                    <button class="nav-btn" data-tab="history">History</button>
+                    <button class="nav-btn" data-tab="stats">Stats</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Game Tab -->
+            <div id="game-tab" class="tab-content active">
+                <!-- Game Setup -->
+                <div id="game-setup" class="game-setup">
+                    <div class="card">
+                        <h2>Start New Game</h2>
+                        <div class="player-setup">
+                            <div class="input-group">
+                                <input type="text" id="player-name" placeholder="Enter player name" maxlength="20">
+                                <button id="add-player" class="btn btn-primary">Add Player</button>
+                            </div>
+                            <div id="players-list" class="players-list"></div>
+                            <button id="start-game" class="btn btn-success" disabled>Start Game</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Game -->
+                <div id="active-game" class="active-game hidden">
+                    <div class="game-header">
+                        <div class="round-info">
+                            <h2>Round <span id="current-round">1</span> of 11</h2>
+                            <div class="wild-card">
+                                <span>Wild Card: </span>
+                                <span id="wild-card" class="wild-display">3</span>
+                            </div>
+                        </div>
+                        <div class="game-actions">
+                            <button id="end-game" class="btn btn-secondary">End Game</button>
+                        </div>
+                    </div>
+
+                    <div class="scorecard">
+                        <div class="scorecard-header">
+                            <div class="player-name-header">Player</div>
+                            <div class="rounds-header">
+                                <div class="round-header" data-round="1">R1</div>
+                                <div class="round-header" data-round="2">R2</div>
+                                <div class="round-header" data-round="3">R3</div>
+                                <div class="round-header" data-round="4">R4</div>
+                                <div class="round-header" data-round="5">R5</div>
+                                <div class="round-header" data-round="6">R6</div>
+                                <div class="round-header" data-round="7">R7</div>
+                                <div class="round-header" data-round="8">R8</div>
+                                <div class="round-header" data-round="9">R9</div>
+                                <div class="round-header" data-round="10">R10</div>
+                                <div class="round-header" data-round="11">R11</div>
+                            </div>
+                            <div class="total-header">Total</div>
+                        </div>
+                        <div id="scorecard-body" class="scorecard-body"></div>
+                    </div>
+
+                    <div class="score-input-section">
+                        <h3>Enter Scores for Round <span id="input-round">1</span></h3>
+                        <div id="score-inputs" class="score-inputs"></div>
+                        <div class="input-actions">
+                            <button id="submit-scores" class="btn btn-primary">Submit Round</button>
+                            <button id="next-round" class="btn btn-success hidden">Next Round</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Tab -->
+            <div id="history-tab" class="tab-content">
+                <div class="card">
+                    <h2>Game History</h2>
+                    <div id="games-history" class="games-history"></div>
+                </div>
+            </div>
+
+            <!-- Stats Tab -->
+            <div id="stats-tab" class="tab-content">
+                <div class="card">
+                    <h2>Player Statistics</h2>
+                    <div id="player-stats" class="player-stats"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Score Input Modal -->
+    <div id="score-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Enter Score</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="player-info">
+                    <span id="modal-player-name"></span> - Round <span id="modal-round"></span>
+                </div>
+                <input type="number" id="modal-score-input" min="0" max="500" placeholder="Enter score">
+                <div class="number-pad">
+                    <button class="num-btn" data-num="1">1</button>
+                    <button class="num-btn" data-num="2">2</button>
+                    <button class="num-btn" data-num="3">3</button>
+                    <button class="num-btn" data-num="4">4</button>
+                    <button class="num-btn" data-num="5">5</button>
+                    <button class="num-btn" data-num="6">6</button>
+                    <button class="num-btn" data-num="7">7</button>
+                    <button class="num-btn" data-num="8">8</button>
+                    <button class="num-btn" data-num="9">9</button>
+                    <button class="num-btn clear">Clear</button>
+                    <button class="num-btn" data-num="0">0</button>
+                    <button class="num-btn backspace">⌫</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-cancel" class="btn btn-secondary">Cancel</button>
+                <button id="modal-save" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=4"></script>
+</body>
+</html>
