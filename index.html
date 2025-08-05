@@ -165,6 +165,15 @@
         </div>
     </div>
 
-    <script src="script.js?v=4"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+    </script>
+    <script src="script.js?v=4" type="module" defer></script>
 </body>
 </html>

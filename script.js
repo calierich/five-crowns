@@ -402,40 +402,12 @@ class FiveCrownsTracker {
             return;
         }
 
-    if (!allValid) {
-        alert('Please enter valid scores for all players');
-        return;
-    }
-
-    // Show feedback
-    const submitBtn = document.getElementById('submit-scores');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Saved!';
-    submitBtn.style.background = '#28a745';
-    
-    setTimeout(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.style.background = '';
-    }, 1000);
-
-    this.renderScorecard();
-    this.updateSubmitButton();
-
-    // Check if game is complete
-    if (this.currentRound === 11) {
-        setTimeout(() => {
-            this.completeGame();
-        }, 1000);
-    }
-}
-
-nextRound() {
-    if (this.currentRound < 11) {
-        this.currentRound++;
-        this.updateWildCard();
-        this.renderScoreInputs();
+        const { player, round } = this.modalContext;
+        this.currentGame.scores[player][round - 1] = score;
+        
         this.renderScorecard();
-        document.getElementById('current-round').textContent = this.currentRound;
+        this.updateSubmitButton();
+        this.closeModal();
     }
 
     handleNumberPad(button) {
@@ -707,22 +679,7 @@ nextRound() {
 }
 
 // Initialize the tracker when the page loads
-let tracker;
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, creating FiveCrownsTracker...');
-    tracker = new FiveCrownsTracker();
-    console.log('Tracker created:', tracker);
-});
+console.log('DOM loaded, creating FiveCrownsTracker...');
+const tracker = new FiveCrownsTracker();
+console.log('Tracker created:', tracker);
 
-// Service Worker Registration for PWA
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('SW registered: ', registration);
-            })
-            .catch(registrationError => {
-                console.log('SW registration failed: ', registrationError);
-            });
-    });
-}
