@@ -165,6 +165,8 @@ class FiveCrownsTracker {
         this.renderScorecard();
         this.renderScoreInputs();
         this.updateSubmitButton();
+
+        document.getElementById('current-round').textContent = this.currentRound;
     }
 
     showGameView() {
@@ -400,12 +402,40 @@ class FiveCrownsTracker {
             return;
         }
 
-        const { player, round } = this.modalContext;
-        this.currentGame.scores[player][round - 1] = score;
-        
-        this.renderScorecard();
+    if (!allValid) {
+        alert('Please enter valid scores for all players');
+        return;
+    }
+
+    // Show feedback
+    const submitBtn = document.getElementById('submit-scores');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Saved!';
+    submitBtn.style.background = '#28a745';
+    
+    setTimeout(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.style.background = '';
+    }, 1000);
+
+    this.renderScorecard();
+    this.updateSubmitButton();
+
+    // Check if game is complete
+    if (this.currentRound === 11) {
+        setTimeout(() => {
+            this.completeGame();
+        }, 1000);
+    }
+}
+
+nextRound() {
+    if (this.currentRound < 11) {
+        this.currentRound++;
+        this.updateWildCard();
         this.renderScoreInputs();
-        this.closeModal();
+        this.renderScorecard();
+        document.getElementById('current-round').textContent = this.currentRound;
     }
 
     handleNumberPad(button) {
@@ -416,10 +446,9 @@ class FiveCrownsTracker {
             input.value = '';
         } else if (button.classList.contains('backspace')) {
             input.value = currentValue.slice(0, -1);
-        } else {
-            const number = button.textContent;
+        } else if (button.dataset.num !== undefined) {
             if (currentValue.length < 3) { // Limit to 3 digits
-                input.value = currentValue + number;
+                input.value = currentValue + button.dataset.num;
             }
         }
     }
