@@ -132,10 +132,21 @@ class FiveCrownsTracker {
         this.players.forEach(player => {
             const playerDiv = document.createElement('div');
             playerDiv.className = 'player-item';
-            playerDiv.innerHTML = `
-                <span class="player-name">${player}</span>
-                <button class="btn btn-small btn-danger" onclick="tracker.removePlayer('${player}')">Remove</button>
-            `;
+            
+            // Create player name span
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'player-name';
+            nameSpan.textContent = player;
+            
+            // Create remove button
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-icon';
+            removeBtn.innerHTML = '&times;';
+            removeBtn.addEventListener('click', () => this.removePlayer(player));
+            
+            // Append elements to player div
+            playerDiv.appendChild(nameSpan);
+            playerDiv.appendChild(removeBtn);
             container.appendChild(playerDiv);
         });
         

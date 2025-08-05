@@ -221,19 +221,30 @@ body {
     font-weight: 500;
 }
 
-.remove-player {
-    background: #dc3545;
-    color: white;
+.remove-icon {
+    background: none;
+    color: #dc3545;
     border: none;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
     cursor: pointer;
-    font-size: 0.8rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.remove-player:hover {
-    background: #c82333;
+.remove-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }
+
+
 
 /* Game Layout */
 .game-layout {
