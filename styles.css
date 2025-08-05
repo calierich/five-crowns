@@ -125,8 +125,27 @@ body {
     font-weight: 500;
 }
 
-.input-group input::placeholder {
-    color: rgba(255, 215, 0, 0.5);
+/* Input placeholder styles for all browsers */
+.input-group input::placeholder,
+#modal-score-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* For older browsers */
+.input-group input::-webkit-input-placeholder,
+#modal-score-input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.input-group input::-moz-placeholder,
+#modal-score-input::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    opacity: 1;
+}
+
+.input-group input:-ms-input-placeholder,
+#modal-score-input:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .input-group input:focus {
@@ -611,9 +630,13 @@ body {
     text-align: center;
 }
 
+#modal-score-input::placeholder {
+    color: rgba(255, 215, 0, 0.5);
+}
+
 #modal-score-input:focus {
     outline: none;
-    border-color: #ffd700;
+    border-color: #FEBE53;
 }
 
 .number-pad {

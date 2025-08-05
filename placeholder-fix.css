@@ -1,0 +1,28 @@
+/* Placeholder styles with increased visibility */
+input::placeholder,
+#modal-score-input::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* For older browsers */
+input::-webkit-input-placeholder,
+#modal-score-input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+input::-moz-placeholder,
+#modal-score-input::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+    opacity: 1;
+}
+
+input:-ms-input-placeholder,
+#modal-score-input:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+input:-moz-placeholder,
+#modal-score-input:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+    opacity: 1;
+}
