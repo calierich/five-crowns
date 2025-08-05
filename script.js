@@ -48,7 +48,8 @@ class FiveCrownsTracker {
         // Game controls
         document.getElementById('submit-scores').addEventListener('click', () => this.submitRoundScores());
         document.getElementById('next-round').addEventListener('click', () => this.nextRound());
-        document.getElementById('end-game').addEventListener('click', () => this.endGame());
+        
+        // End game functionality removed
 
         // Modal controls
         document.getElementById('modal-cancel').addEventListener('click', () => this.closeModal());
@@ -588,13 +589,6 @@ class FiveCrownsTracker {
         const container = document.querySelector('.confetti-container');
         if (container) {
             container.innerHTML = '';
-        }
-    }
-
-    endGame() {
-        if (confirm('Are you sure you want to end the current game?')) {
-            this.hideGameView();
-            this.currentGame = null;
         }
     }
 
