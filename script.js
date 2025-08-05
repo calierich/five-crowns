@@ -19,6 +19,7 @@ class FiveCrownsTracker {
         this.updateWildCard();
         this.renderHistory();
         this.renderStats();
+        this.renderPlayersList();
         
         // Debug: Check if game tab is visible
         const gameTab = document.getElementById('game-tab');
@@ -42,10 +43,6 @@ class FiveCrownsTracker {
         });
 
         // Player management
-        document.getElementById('add-player').addEventListener('click', () => this.addPlayer());
-        document.getElementById('player-name').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.addPlayer();
-        });
         document.getElementById('start-game').addEventListener('click', () => this.startGame());
 
         // Game controls
@@ -124,7 +121,14 @@ class FiveCrownsTracker {
     renderPlayersList() {
         const container = document.getElementById('players-list');
         container.innerHTML = '';
+        
+        // Remove the input group from its current location
+        const inputGroup = document.querySelector('.input-group');
+        if (inputGroup) {
+            inputGroup.parentNode.removeChild(inputGroup);
+        }
 
+        // Add existing players
         this.players.forEach(player => {
             const playerDiv = document.createElement('div');
             playerDiv.className = 'player-item';
@@ -133,6 +137,21 @@ class FiveCrownsTracker {
                 <button class="btn btn-small btn-danger" onclick="tracker.removePlayer('${player}')">Remove</button>
             `;
             container.appendChild(playerDiv);
+        });
+        
+        // Create and add the input group after the last player
+        const newInputGroup = document.createElement('div');
+        newInputGroup.className = 'input-group';
+        newInputGroup.innerHTML = `
+            <input type="text" id="player-name" placeholder="Enter player name" maxlength="20">
+            <button id="add-player" class="btn btn-primary">Add Player</button>
+        `;
+        container.appendChild(newInputGroup);
+        
+        // Re-bind events for the new input field and button
+        document.getElementById('add-player').addEventListener('click', () => this.addPlayer());
+        document.getElementById('player-name').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') this.addPlayer();
         });
     }
 
